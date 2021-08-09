@@ -7,12 +7,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
-
 const socket = io('http://localhost:8080')
 
 const Message = props => (
     <Card.Text>
-        {props.message}
+        <b>{props.message.id}</b>: {props.message.message}
     </Card.Text>
 )
   
@@ -49,7 +48,10 @@ export default class Chat extends Component {
 
     onSubmit(e) {
         e.preventDefault()
-        const message = this.state.message
+        const message = {
+            "message": this.state.message,
+            "id": socket.id
+        }
 
         if(message === "") return
         socket.emit('send-message', message)
@@ -94,6 +96,7 @@ export default class Chat extends Component {
                             </Button>
                         </Form.Group>
                     </Form>
+                    {socket.id}
                 </Card.Body>
             </Card>
         )
