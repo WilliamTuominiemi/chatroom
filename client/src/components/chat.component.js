@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import { io } from "socket.io-client"
 
+// Bootstrap
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
+
 const socket = io('http://localhost:8080')
 
 const Message = props => (
-    <div className="card">
-      <div className="card-body">
-        <p className="card-text">{props.message}</p>
-      </div>
-    </div>
+    <Card.Text>
+        {props.message}
+    </Card.Text>
 )
   
 export default class Chat extends Component {
@@ -66,29 +71,31 @@ export default class Chat extends Component {
 
     render() {
         return (
-          <div>
-            { this.messagesList() }
-
-            <div className="card" id="message-container"></div>
-            <div className="card">
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group"> 
-                        <label>Message: </label>
-                        <input  type="text"
-                            required
-                            className="form-control"
-                            value={this.state.message}
-                            onChange={this.onChangeMessage}
-                            />
-                    </div>
-
-                    <div className="form-group">
-                        <input type="submit" value="Create Post" className="btn btn-primary" />
-                    </div>
-                </form>
-            </div>
-            
-          </div>
+            <Card>
+                <Card.Body>
+                    { this.messagesList() }
+                </Card.Body>
+                <Card.Body>
+                    <Form onSubmit={this.onSubmit}>
+                        <Form.Group className="mb-3" controlId="formMessage">
+                            <FloatingLabel controlId="floatingMessage" label="message">
+                                <Form.Control 
+                                    type="text" 
+                                    required
+                                    className="form-control"
+                                    placeholder="message"
+                                    value={this.state.message}
+                                    onChange={this.onChangeMessage}
+                                />
+                            </FloatingLabel>
+    
+                            <Button variant="primary" type="submit">
+                                send
+                            </Button>
+                        </Form.Group>
+                    </Form>
+                </Card.Body>
+            </Card>
         )
     }
 }
