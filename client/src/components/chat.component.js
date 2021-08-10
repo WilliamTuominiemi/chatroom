@@ -66,7 +66,7 @@ export default class Chat extends Component {
     }
 
     messagesList() {
-        return this.state.messages.map(currentMessage => {
+        return this.state.messages.reverse().map(currentMessage => {
           return <Message message={currentMessage}/>
         })
     }
@@ -75,7 +75,9 @@ export default class Chat extends Component {
         return (
             <Card>
                 <Card.Body>
-                    { this.messagesList() }
+                    <div className="chatField">
+                        { this.messagesList() }
+                    </div>
                 </Card.Body>
                 <Card.Body>
                     <Form onSubmit={this.onSubmit}>
