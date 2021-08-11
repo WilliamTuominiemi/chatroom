@@ -12,7 +12,18 @@ const socket = io('http://localhost:8080')
 // Received
 const RMessage = props => (
     <div className="receivedMessage">
-        <Card.Text><b>{props.message.id}:</b> {props.message.message}</Card.Text>
+        <Card.Text>
+            <b style={
+                {color: `rgb(
+                    ${props.message.color[0]}, 
+                    ${props.message.color[1]}, 
+                    ${props.message.color[2]}
+                )`}
+            }>
+                    {props.message.id}:
+            </b> 
+            {props.message.message}
+        </Card.Text>
     </div>
 )
 
@@ -23,11 +34,12 @@ const SMessage = props => (
             <Card.Text><b>You:</b> {props.message.message}</Card.Text>
         </div>
     </div>
-    
 )
   
+const userNameColor = [Math.random() * 255, Math.random() * 255, Math.random() * 255]
+
 export default class Chat extends Component {
-    
+
     constructor(props) {
         super(props)
 
@@ -38,7 +50,6 @@ export default class Chat extends Component {
         socket.on('receive-message', message => {
             const newMessages = this.state.messages.concat(message)
             this.setState({ messages: newMessages })
-            console.log(newMessages)
         })
 
         this.onChangeMessage = this.onChangeMessage.bind(this)
@@ -61,7 +72,8 @@ export default class Chat extends Component {
         e.preventDefault()
         const message = {
             "message": this.state.message,
-            "id": socket.id
+            "id": socket.id,
+            "color": userNameColor
         }
 
         if(message === "") return
@@ -69,7 +81,6 @@ export default class Chat extends Component {
 
         const newMessages = this.state.messages.concat(message)
         this.setState({ messages: newMessages })
-        console.log(newMessages)
 
         this.setState({
             message: ""
