@@ -6,6 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 // Socket.io
 const socket = io('http://localhost:8080')
@@ -69,6 +70,10 @@ export default class Chat extends Component {
         })
     }
 
+    onChangeName(e) {
+        console.log(e.target.value)
+    }
+
     onSubmit(e) {
         e.preventDefault()
         const message = {
@@ -106,6 +111,36 @@ export default class Chat extends Component {
                     <Card.Title>
                         Chat
                     </Card.Title>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                            Settings
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.ItemText>
+                                <FloatingLabel controlId="floatingMessage" label="name">
+                                    <Form.Control 
+                                        type="text" 
+                                        required
+                                        className="form-control"
+                                        placeholder="name"
+                                        value={this.state.message}
+                                        onChange={this.onChangeName}
+                                    />
+                                </FloatingLabel>
+                            </Dropdown.ItemText>
+                                
+                            <Dropdown.ItemText>
+                                <Form.Label htmlFor="ColorInput">color</Form.Label>
+                                <Form.Control
+                                    type="color"
+                                    id="ColorInput"
+                                    defaultValue="#563d7c"
+                                    title="Choose your color"
+                                />
+                            </Dropdown.ItemText>
+                        </Dropdown.Menu>
+                    </Dropdown>
                 </Card.Body>
                 <Card.Body>
                     <div className="chatField">
