@@ -30,3 +30,22 @@ body {
 .chatBox {
     outline-style: solid;
 }
+
+.sentMessage {
+    float: right;
+    color: white;
+    background-color: #1982fc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.receivedMessage {
+    text-align: left;
+    color: black;
+    background-color: lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    width: max-content;
+}

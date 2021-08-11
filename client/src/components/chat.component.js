@@ -11,16 +11,19 @@ const socket = io('http://localhost:8080')
 
 // Received
 const RMessage = props => (
-    <Card.Text>
-        <b>{props.message.id}</b>: {props.message.message}
-    </Card.Text>
+    <div className="receivedMessage">
+        <Card.Text><b>{props.message.id}:</b> {props.message.message}</Card.Text>
+    </div>
 )
 
 // Sent
 const SMessage = props => (
-    <Card.Text>
-        <b>You</b>: {props.message.message}
-    </Card.Text>
+    <div className="sentMessageContainer">
+        <div className="sentMessage">
+            <Card.Text><b>You:</b> {props.message.message}</Card.Text>
+        </div>
+    </div>
+    
 )
   
 export default class Chat extends Component {
@@ -65,7 +68,7 @@ export default class Chat extends Component {
         socket.emit('send-message', message)
 
         const newMessages = this.state.messages.concat(message)
-        this.setState({ messaages: newMessages })
+        this.setState({ messages: newMessages })
         console.log(newMessages)
 
         this.setState({
@@ -91,7 +94,7 @@ export default class Chat extends Component {
                     <Card.Title>
                         Chat
                     </Card.Title>
-                </Card.Body>   
+                </Card.Body>
                 <Card.Body>
                     <div className="chatField">
                         { this.messagesList() }
