@@ -23,10 +23,6 @@ body {
     margin: 10px;
 }
 
-.SignInButton {
-    width: 75%;
-}
-
 .chatBox {
     outline-style: solid;
 }
