@@ -9,9 +9,17 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const socket = io('http://localhost:8080')
 
-const Message = props => (
+// Received
+const RMessage = props => (
     <Card.Text>
         <b>{props.message.id}</b>: {props.message.message}
+    </Card.Text>
+)
+
+// Sent
+const SMessage = props => (
+    <Card.Text>
+        <b>You</b>: {props.message.message}
     </Card.Text>
 )
   
@@ -67,7 +75,12 @@ export default class Chat extends Component {
 
     messagesList() {
         return this.state.messages.reverse().map(currentMessage => {
-          return <Message message={currentMessage}/>
+            console.log(currentMessage.id)
+            if(currentMessage.id === socket.id) {
+                return <SMessage message={currentMessage}/>
+            }   else    {
+                return <RMessage message={currentMessage}/>
+            }
         })
     }
 
