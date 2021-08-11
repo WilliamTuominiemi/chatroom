@@ -65,7 +65,7 @@ export default class Chat extends Component {
         socket.emit('send-message', message)
 
         const newMessages = this.state.messages.concat(message)
-        this.setState({ messages: newMessages })
+        this.setState({ messaages: newMessages })
         console.log(newMessages)
 
         this.setState({
@@ -87,6 +87,11 @@ export default class Chat extends Component {
     render() {
         return (
             <Card>
+                <Card.Body>
+                    <Card.Title>
+                        Chat
+                    </Card.Title>
+                </Card.Body>   
                 <Card.Body>
                     <div className="chatField">
                         { this.messagesList() }
