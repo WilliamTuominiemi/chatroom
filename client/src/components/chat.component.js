@@ -15,14 +15,8 @@ const socket = io('http://localhost:8080')
 const RMessage = props => (
     <div className="receivedMessage">
         <Card.Text>
-            <b style={
-                {color: `rgb(
-                    ${props.message.color[0]}, 
-                    ${props.message.color[1]}, 
-                    ${props.message.color[2]}
-                )`}
-            }>
-                    {props.message.id}:‎‎‎‎‎⠀
+            <b style={{color: `${props.message.color}`}}>
+                {props.message.name || props.message.id}:‎‎‎‎‎⠀
             </b> 
             {props.message.message}
         </Card.Text>
@@ -37,9 +31,6 @@ const SMessage = props => (
         </div>
     </div>
 )
-  
-// Define a color for user
-const userNameColor = [Math.random() * 255, Math.random() * 255, Math.random() * 255]
 
 export default class Chat extends Component {
 
@@ -56,11 +47,15 @@ export default class Chat extends Component {
         })
 
         this.onChangeMessage = this.onChangeMessage.bind(this)
+        this.onChangeName = this.onChangeName.bind(this)
+        this.onChangeColor = this.onChangeColor.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         
         this.state = {
           message: '',
-          messages: []
+          messages: [],
+          name: '',
+          color: '#000000'
         }
     }
 
@@ -71,7 +66,15 @@ export default class Chat extends Component {
     }
 
     onChangeName(e) {
-        console.log(e.target.value)
+        this.setState({
+            name: e.target.value
+        })
+    }
+
+    onChangeColor(e) {
+        this.setState({
+            color: e.target.value
+        })
     }
 
     onSubmit(e) {
@@ -79,7 +82,8 @@ export default class Chat extends Component {
         const message = {
             "message": this.state.message,
             "id": socket.id,
-            "color": userNameColor
+            "name": this.state.name,
+            "color": this.state.color
         }
 
         if(message === "") return
@@ -118,13 +122,13 @@ export default class Chat extends Component {
 
                         <Dropdown.Menu>
                             <Dropdown.ItemText>
-                                <FloatingLabel controlId="floatingMessage" label="name">
+                                <FloatingLabel label="name">
                                     <Form.Control 
                                         type="text" 
                                         required
                                         className="form-control"
                                         placeholder="name"
-                                        value={this.state.message}
+                                        value={this.state.name}
                                         onChange={this.onChangeName}
                                     />
                                 </FloatingLabel>
@@ -135,8 +139,9 @@ export default class Chat extends Component {
                                 <Form.Control
                                     type="color"
                                     id="ColorInput"
-                                    defaultValue="#563d7c"
                                     title="Choose your color"
+                                    value={this.state.color}
+                                    onChange={this.onChangeColor}
                                 />
                             </Dropdown.ItemText>
                         </Dropdown.Menu>
