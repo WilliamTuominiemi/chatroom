@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
+// Socket.io
 const socket = io('http://localhost:8080')
 
 // Received
@@ -20,7 +21,7 @@ const RMessage = props => (
                     ${props.message.color[2]}
                 )`}
             }>
-                    {props.message.id}:
+                    {props.message.id}:‎‎‎‎‎⠀
             </b> 
             {props.message.message}
         </Card.Text>
@@ -36,6 +37,7 @@ const SMessage = props => (
     </div>
 )
   
+// Define a color for user
 const userNameColor = [Math.random() * 255, Math.random() * 255, Math.random() * 255]
 
 export default class Chat extends Component {
@@ -66,7 +68,6 @@ export default class Chat extends Component {
             message: e.target.value
         })
     }
-    
 
     onSubmit(e) {
         e.preventDefault()
@@ -124,7 +125,6 @@ export default class Chat extends Component {
                                     onChange={this.onChangeMessage}
                                 />
                             </FloatingLabel>
-    
                             <Button variant="primary" type="submit">
                                 send
                             </Button>

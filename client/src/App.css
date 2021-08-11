@@ -38,6 +38,7 @@ body {
     border-radius: 5px;
     padding: 10px;
     margin: 5px;
+    max-width: 100%;
 }
 
 .receivedMessage {
@@ -48,4 +49,5 @@ body {
     padding: 10px;
     margin: 5px;
     width: max-content;
+    max-width: 100%;
 }
