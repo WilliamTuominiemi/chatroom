@@ -151,7 +151,7 @@ export default class Chat extends Component {
                 <Card.Body>
                     <Form onSubmit={this.onSubmit}>
                         <Form.Group className="mb-3" controlId="formMessage">
-                            <FloatingLabel controlId="floatingMessage" label="message">
+                            <FloatingLabel controlId="floatingMessage" label="message" style={{float: "left", width: "75%"}}>
                                 <Form.Control 
                                     type="text" 
                                     required
@@ -161,12 +161,13 @@ export default class Chat extends Component {
                                     onChange={this.onChangeMessage}
                                 />
                             </FloatingLabel>
-                            <Button variant="primary" type="submit">
+                            <Button variant="primary" type="submit" size="lg">
                                 send
                             </Button>
                         </Form.Group>
+                        <br />
+                        <Card.Text style={{color: `${this.state.color}`}}><b>{this.state.name ||socket.id}</b></Card.Text>
                     </Form>
-                    {socket.id}
                 </Card.Body>
             </Card>
         )
