@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import { io } from "socket.io-client"
 
 // Bootstrap
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Dropdown from 'react-bootstrap/Dropdown';
+import { Card, Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
 
 // Socket.io
 const socket = io('http://localhost:8080')
