@@ -8,5 +8,9 @@ io.on('connect', socket => {
     socket.on("send-message", (message) => {
         socket.broadcast.emit('receive-message', message)
     })
+
+    socket.on("create-room", (room) => {
+        console.log(room)
+    })
 })
 

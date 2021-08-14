@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { io } from "socket.io-client"
 
 // Bootstrap
 import { Card, Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
+
+// Socket.io
+const socket = io('http://localhost:8080')
 
 export default class Main extends Component {
     constructor(props) {
@@ -25,7 +28,12 @@ export default class Main extends Component {
     onSubmit(e) {
         e.preventDefault()
        
-        console.log(e)
+        const room = {
+            "roomName": this.state.roomName,
+        }
+
+        if(room === "") return
+        socket.emit('create-room', room)
 
         this.setState({
             roomName: ""
@@ -67,5 +75,5 @@ export default class Main extends Component {
             </Card.Body>
         </Card>
     )
-  }
+    }
 }
