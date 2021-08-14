@@ -5,11 +5,13 @@ import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
 
 import Chat from "./components/chat.component"
+import Main from "./components/main.component"
 
 function App() {
   return (
     <Router>
-      <Route path="/" exact component={Chat} />   
+      <Route path="/" exact component={Main} />   
+      <Route path="/chat" exact component={Chat} />   
     </Router> 
   );
 }
