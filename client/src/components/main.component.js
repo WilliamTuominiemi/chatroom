@@ -47,7 +47,7 @@ export default class Main extends Component {
             <Card.Body>
             <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Dropdown Button
+                    Create a Room
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
