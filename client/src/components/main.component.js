@@ -7,15 +7,24 @@ import { Card, Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
 // Socket.io
 const socket = io('http://localhost:8080')
 
+const Room = props => (
+    <Card.Text>{props.room._id}</Card.Text>
+)
+
 export default class Main extends Component {
     constructor(props) {
         super(props)
+
+        socket.on('get-rooms', _rooms => {
+            this.setState({ rooms: _rooms })
+        })
 
         this.onChangeRoomName = this.onChangeRoomName.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         
         this.state = {
             roomName: '',
+            rooms: []
         }
     }
 
@@ -36,7 +45,13 @@ export default class Main extends Component {
         socket.emit('create-room', room)
 
         this.setState({
-            roomName: ""
+            roomName: ''
+        })
+    }
+
+    roomsList() {
+        return this.state.rooms.reverse().map(currentRoom => {
+            return <Room room={currentRoom}/>
         })
     }
   
@@ -72,6 +87,7 @@ export default class Main extends Component {
             </Dropdown>    
             <br/>
             <Button href="/chat">Chat</Button>
+            { this.roomsList() }
             </Card.Body>
         </Card>
     )

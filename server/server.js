@@ -16,6 +16,18 @@ connectDB()
 const Room = require('./models/Room')
 
 io.on('connect', socket => {
+    // TODO: When user connect find all rooms and emit them to the user only 
+    // using io.to(socketId).emit(/* ... */)
+
+    console.log(socket.id)
+
+    const loadRooms = () => {
+        Room.find()
+        .then((result) => {
+            io.to(socket.id).emit('get-rooms', result)
+        })
+    }   
+
     socket.on("send-message", (message) => {
         socket.broadcast.emit('receive-message', message)
     })
@@ -27,8 +39,10 @@ io.on('connect', socket => {
         })
         
         _room.save()
-        .then(() => console.log('room added'))
+        .then(() => loadRooms())
         .catch(err => console.log('Error: ' + err))
     })
+
+    loadRooms()
 })
 
