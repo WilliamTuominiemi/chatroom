@@ -35,6 +35,7 @@ export default class Chat extends Component {
 
         socket.on('connect', () => {
             console.log(`You connected with id: ${socket.id}`)
+            socket.emit('join-room', this.props.match.params.id)
         })
 
         socket.on('receive-message', message => {
@@ -83,7 +84,7 @@ export default class Chat extends Component {
         }
 
         if(message === "") return
-        socket.emit('send-message', message)
+        socket.emit('send-message', message, this.props.match.params.id)
 
         const newMessages = this.state.messages.concat(message)
         this.setState({ messages: newMessages })

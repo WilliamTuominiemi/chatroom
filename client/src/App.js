@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Route path="/" exact component={Main} />   
-      <Route path="/chat" exact component={Chat} />   
+      <Route path="/:id" exact component={Chat} />   
     </Router> 
   );
 }

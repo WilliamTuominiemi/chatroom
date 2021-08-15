@@ -28,8 +28,9 @@ io.on('connect', socket => {
         })
     }   
 
-    socket.on("send-message", (message) => {
-        socket.broadcast.emit('receive-message', message)
+    socket.on("send-message", (message, room) => {
+        console.log("room: "+room)
+        socket.to(room).emit('receive-message', message);
     })
 
     socket.on("create-room", (room) => {
@@ -41,6 +42,11 @@ io.on('connect', socket => {
         _room.save()
         .then(() => loadRooms())
         .catch(err => console.log('Error: ' + err))
+    })
+
+    socket.on("join-room", room => {
+        console.log('joined room'+room)
+        socket.join(room)
     })
 
     loadRooms()

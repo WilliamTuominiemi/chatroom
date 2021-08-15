@@ -11,12 +11,13 @@ const Room = props => (
     <Card.Body>
         <div className="room">
             <Card.Text>{props.room.name}</Card.Text>
-            <Button href={props.room._id}>Join</Button>
+            <Button variant="dark" href={props.room._id}>Join</Button>
         </div>
     </Card.Body>
 )
 
 export default class Main extends Component {
+
     constructor(props) {
         super(props)
 
@@ -29,7 +30,7 @@ export default class Main extends Component {
         
         this.state = {
             roomName: '',
-            rooms: [``]
+            rooms: []
         }
     }
 
