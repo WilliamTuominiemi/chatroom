@@ -8,7 +8,12 @@ import { Card, Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
 const socket = io('http://localhost:8080')
 
 const Room = props => (
-    <Card.Text>{props.room._id}</Card.Text>
+    <Card.Body>
+        <div className="room">
+            <Card.Text>{props.room.name}</Card.Text>
+            <Button href={props.room._id}>Join</Button>
+        </div>
+    </Card.Body>
 )
 
 export default class Main extends Component {
@@ -24,7 +29,7 @@ export default class Main extends Component {
         
         this.state = {
             roomName: '',
-            rooms: []
+            rooms: [``]
         }
     }
 

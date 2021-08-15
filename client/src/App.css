@@ -48,3 +48,9 @@ body {
     width: max-content;
     max-width: 90%;
 }
+
+.room {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+}
