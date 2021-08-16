@@ -19,9 +19,10 @@ io.on('connect', socket => {
     // TODO: When user connect find all rooms and emit them to the user only 
     // using io.to(socketId).emit(/* ... */)
 
-    console.log(socket.id)
+    // console.log(socket.id)
 
     const loadRooms = () => {
+        console.log("Load rooms")
         Room.find()
         .then((result) => {
             io.to(socket.id).emit('get-rooms', result)
@@ -45,8 +46,9 @@ io.on('connect', socket => {
     })
 
     socket.on("join-room", room => {
-        console.log('joined room'+room)
+        // console.log('joined room'+room)
         socket.join(room)
+        console.log(io.sockets.adapter.rooms.get(room).size)
     })
 
     loadRooms()
