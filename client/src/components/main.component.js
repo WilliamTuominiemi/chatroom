@@ -58,7 +58,7 @@ export default class Main extends Component {
 
     roomsList() {
         return this.state.rooms.reverse().map(currentRoom => {
-            console.log(currentRoom)
+            // console.log(currentRoom)
             return <Room room={currentRoom}/>
         })
     }
@@ -95,7 +95,8 @@ export default class Main extends Component {
             </Dropdown>    
             <br/>
             <Button href="/chat">Chat</Button>
-            { this.roomsList() }
+            {/* TODO: Needs to be run again when get-rooms is received */}
+            { this.roomsList() } 
             </Card.Body>
         </Card>
     )

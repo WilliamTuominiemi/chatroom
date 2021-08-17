@@ -17,6 +17,7 @@ const Room = require('./models/Room')
 
 io.on('connect', socket => {
     const loadRooms = () => {
+        console.log('LOADING ROOMS')
         Room.find()
         .then((result) => {
             let rooms = []
@@ -37,7 +38,6 @@ io.on('connect', socket => {
             });
 
             checkAmountOfUsers.then(() => {
-                // console.log(rooms)
                 io.to(socket.id).emit('get-rooms', rooms)
             });
         })
@@ -59,13 +59,14 @@ io.on('connect', socket => {
         .catch(err => console.log('Error: ' + err))
     })
 
-    socket.on("join-room", room => {
-        // console.log('joined room'+room)
+    socket.on("join-room", (room) => {
         socket.join(room)
-        // console.log(room)
-        // console.log(io.sockets.adapter.rooms.get(room).size)
     })
 
     loadRooms()
+
+    socket.on('disconnect', function () {
+        loadRooms()
+    });
 })
 
