@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { io } from "socket.io-client"
+import  { Redirect } from 'react-router-dom'
 
 // Bootstrap
 import { Card, Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
@@ -54,6 +55,9 @@ export default class Main extends Component {
         this.setState({
             roomName: ''
         })
+
+        // TODO: Redirect user to the room created
+        return <Redirect to='/roomid'  />
     }
 
     roomsList() {
