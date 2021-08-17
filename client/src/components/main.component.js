@@ -10,7 +10,7 @@ const socket = io('http://localhost:8080')
 const Room = props => (
     <Card.Body>
         <div className="room">
-            <Card.Text>{props.room.name}</Card.Text>
+            <Card.Text>{props.room.name}, {props.room.usersInRoom}</Card.Text>
             <Button variant="dark" href={props.room._id}>Join</Button>
         </div>
     </Card.Body>
@@ -57,6 +57,7 @@ export default class Main extends Component {
 
     roomsList() {
         return this.state.rooms.reverse().map(currentRoom => {
+            console.log(currentRoom)
             return <Room room={currentRoom}/>
         })
     }

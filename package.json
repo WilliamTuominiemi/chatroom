@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "connect-mongo": "^4.4.1",
-    "dotenv": "^10.0.0",
-    "mongoose": "^5.13.7"
-  }
-}

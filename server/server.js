@@ -16,36 +16,29 @@ connectDB()
 const Room = require('./models/Room')
 
 io.on('connect', socket => {
-    // TODO: When user connect find all rooms and emit them to the user only 
-    // using io.to(socketId).emit(/* ... */)
-
-    // console.log(socket.id)
-
     const loadRooms = () => {
-        // console.log("Load rooms")
         Room.find()
         .then((result) => {
+            let rooms = []
+
             const checkAmountOfUsers = new Promise((resolve, reject) => {
                 result.forEach((value, index, array) => {
-                    // console.log(value._id.toString());
-                    // console.log(io.sockets.adapter.rooms.get(value._id.toString()))
+                    let room = JSON.parse(JSON.stringify(value));
+                    
                     if(io.sockets.adapter.rooms.get(value._id.toString())) {
-                        // console.log(io.sockets.adapter.rooms.get(value._id.toString()).size)
-                        result[index].usersOnline = io.sockets.adapter.rooms.get(value._id.toString()).size
+                        room.usersInRoom = io.sockets.adapter.rooms.get(value._id.toString()).size;
+                        rooms.push(room)
                     } else {
-                        // console.log('unPOG') 
-                        result[index].usersOnline = 0
-                        console.log(result[index])
+                        room.usersInRoom = 0
+                        rooms.push(room)
                     }
-
-                    // result[index].usersOnline = io.sockets.adapter.rooms.get(result[index]._id).size
                     if (index === array.length -1) resolve();
                 });
             });
-            
+
             checkAmountOfUsers.then(() => {
-                // console.log(result)
-                io.to(socket.id).emit('get-rooms', result)
+                // console.log(rooms)
+                io.to(socket.id).emit('get-rooms', rooms)
             });
         })
     }   
