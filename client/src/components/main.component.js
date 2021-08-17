@@ -10,7 +10,8 @@ const socket = io('http://localhost:8080')
 const Room = props => (
     <Card.Body>
         <div className="room">
-            <Card.Text>{props.room.name}, {props.room.usersInRoom}</Card.Text>
+            <Card.Text>{props.room.name}</Card.Text>
+            <Card.Text><b>{props.room.usersInRoom}</b> Chatter(s)</Card.Text>
             <Button variant="dark" href={props.room._id}>Join</Button>
         </div>
     </Card.Body>
