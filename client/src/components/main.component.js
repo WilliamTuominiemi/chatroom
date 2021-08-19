@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { io } from 'socket.io-client'
 import { Redirect } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
-import { useHistory } from 'react-router-dom'
 
 // Bootstrap
 import { Card, Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap'
@@ -64,20 +63,12 @@ export default class Main extends Component {
         this.setState({
             roomName: '',
             redirect: true,
-            redirectUrl: `/${room.id}`,
+            redirectRoom: `${room.id}`,
         })
-
-        // history.push(url)
-
-        // return <Redirect to="/123" />
-        // return <Redirect to={url} />
-        // TODO: Redirect user to the room created
-        // return <Redirect to='/roomid'  />
     }
 
     roomsList() {
         return this.state.rooms.reverse().map((currentRoom) => {
-            // console.log(currentRoom)
             return <Room room={currentRoom} />
         })
     }
@@ -88,7 +79,11 @@ export default class Main extends Component {
                 redirect: false,
             })
 
-            return <Redirect to={this.state.redirectUrl} />
+            const redirectUrl = `/${this.state.redirectRoom}`
+
+            socket.emit('join-room', this.state.redirectRoom)
+
+            return <Redirect to={redirectUrl} />
         }
         return (
             <Card>

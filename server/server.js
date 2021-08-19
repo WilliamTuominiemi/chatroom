@@ -17,7 +17,6 @@ const Room = require('./models/Room')
 
 io.on('connect', (socket) => {
     const loadRooms = () => {
-        console.log('LOADING ROOMS')
         Room.find().then((result) => {
             let rooms = []
 
@@ -29,8 +28,9 @@ io.on('connect', (socket) => {
                         room.usersInRoom = io.sockets.adapter.rooms.get(value._id.toString()).size
                         rooms.push(room)
                     } else {
-                        room.usersInRoom = 0
-                        rooms.push(room)
+                        Room.findOneAndDelete({ _id: value._id }).then(() => {
+                            // console.log('Deleted room')
+                        })
                     }
                     if (index === array.length - 1) resolve()
                 })
