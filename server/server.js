@@ -1,8 +1,8 @@
 const dotenv = require('dotenv')
-const io = require('socket.io')(8080 ,{
+const io = require('socket.io')(8080, {
     cors: {
-        origin:['http://localhost:3000']
-    }
+        origin: ['http://localhost:3000'],
+    },
 })
 
 // Load config
@@ -15,51 +15,52 @@ connectDB()
 // Models
 const Room = require('./models/Room')
 
-io.on('connect', socket => {
+io.on('connect', (socket) => {
     const loadRooms = () => {
         console.log('LOADING ROOMS')
-        Room.find()
-        .then((result) => {
+        Room.find().then((result) => {
             let rooms = []
 
             const checkAmountOfUsers = new Promise((resolve, reject) => {
                 result.forEach((value, index, array) => {
-                    let room = JSON.parse(JSON.stringify(value));
-                    
-                    if(io.sockets.adapter.rooms.get(value._id.toString())) {
-                        room.usersInRoom = io.sockets.adapter.rooms.get(value._id.toString()).size;
+                    let room = JSON.parse(JSON.stringify(value))
+
+                    if (io.sockets.adapter.rooms.get(value._id.toString())) {
+                        room.usersInRoom = io.sockets.adapter.rooms.get(value._id.toString()).size
                         rooms.push(room)
                     } else {
                         room.usersInRoom = 0
                         rooms.push(room)
                     }
-                    if (index === array.length -1) resolve();
-                });
-            });
+                    if (index === array.length - 1) resolve()
+                })
+            })
 
             checkAmountOfUsers.then(() => {
                 io.to(socket.id).emit('get-rooms', rooms)
-            });
+            })
         })
-    }   
+    }
 
-    socket.on("send-message", (message, room) => {
-        console.log("room: "+room)
-        socket.to(room).emit('receive-message', message);
+    socket.on('send-message', (message, room) => {
+        console.log('room: ' + room)
+        socket.to(room).emit('receive-message', message)
     })
 
-    socket.on("create-room", (room) => {
+    socket.on('create-room', (room) => {
         console.log(room)
         const _room = new Room({
+            _id: room.id,
             name: room.roomName,
         })
-        
-        _room.save()
-        .then(() => loadRooms())
-        .catch(err => console.log('Error: ' + err))
+
+        _room
+            .save()
+            .then(() => loadRooms())
+            .catch((err) => console.log('Error: ' + err))
     })
 
-    socket.on("join-room", (room) => {
+    socket.on('join-room', (room) => {
         socket.join(room)
     })
 
@@ -67,6 +68,5 @@ io.on('connect', socket => {
 
     socket.on('disconnect', function () {
         loadRooms()
-    });
+    })
 })
-

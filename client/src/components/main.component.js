@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { io } from "socket.io-client"
 import  { Redirect } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid';
 
 // Bootstrap
 import { Card, Form, Button, FloatingLabel, Dropdown } from 'react-bootstrap';
@@ -21,8 +22,9 @@ const Room = props => (
 export default class Main extends Component {
 
     constructor(props) {
-        super(props)
+        console.log(uuidv4())
 
+        super(props)
         socket.on('get-rooms', _rooms => {
             this.setState({ rooms: _rooms })
         })
@@ -47,6 +49,7 @@ export default class Main extends Component {
        
         const room = {
             "roomName": this.state.roomName,
+            "id": uuidv4()
         }
 
         if(room === "") return
@@ -55,9 +58,8 @@ export default class Main extends Component {
         this.setState({
             roomName: ''
         })
-
         // TODO: Redirect user to the room created
-        return <Redirect to='/roomid'  />
+        // return <Redirect to='/roomid'  />
     }
 
     roomsList() {
