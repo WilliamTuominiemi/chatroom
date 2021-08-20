@@ -6,8 +6,8 @@ console.log(process.env.MONGO_URI)
 const connectDB = () => {
     mongoose
         .connect(uri, {
-            useNewUrlParser: true, 
-            useCreateIndex: true 
+            useNewUrlParser: true,
+            useCreateIndex: true,
         })
         .then(() => {
             const connection = mongoose.connection

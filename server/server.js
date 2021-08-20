@@ -66,7 +66,14 @@ io.on('connect', (socket) => {
 
     // Join a room
     socket.on('join-room', (room) => {
-        socket.join(room)
+        Room.find({ _id: room }).then((result) => {
+            console.log(result)
+            if (result.length === 0) {
+                io.to(socket.id).emit('invalid-room')
+            } else {
+                socket.join(room)
+            }
+        })
     })
 
     // Load rooms
