@@ -6,7 +6,9 @@ body {
 .card {
     width: 500px;
     margin: auto;
+    margin-top: 10px;
     margin-bottom: 10px;
+    min-height: 300px;
 }
 
 .chatField {

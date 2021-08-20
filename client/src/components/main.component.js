@@ -87,6 +87,7 @@ export default class Main extends Component {
         }
         return (
             <Card>
+                <br />
                 <Card.Title>ChatApp</Card.Title>
                 <Card.Body>
                     <Dropdown>
