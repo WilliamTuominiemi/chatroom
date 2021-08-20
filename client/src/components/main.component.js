@@ -119,7 +119,6 @@ export default class Main extends Component {
                         </Dropdown.Menu>
                     </Dropdown>
                     <br />
-                    <Button href="/chat">Chat</Button>
                     {/* TODO: Needs to be run again when get-rooms is received */}
                     {this.roomsList()}
                 </Card.Body>
