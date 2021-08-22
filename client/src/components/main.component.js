@@ -12,7 +12,7 @@ const socket = io('http://localhost:8080')
 const Room = (props) => (
     <Card.Body>
         <div className="room">
-            <Card.Text>{props.room.name}</Card.Text>
+            <Card.Title>{props.room.name}</Card.Title>
             <Card.Text>
                 <b>{props.room.usersInRoom}</b> Chatter(s)
             </Card.Text>
@@ -110,6 +110,10 @@ export default class Main extends Component {
                                             placeholder="room name"
                                             value={this.state.roomName}
                                             onChange={this.onChangeRoomName}
+                                        /><br />
+                                        <Form.Check
+                                            type={'checkbox'}
+                                            label={`Private`}
                                         />
                                     </FloatingLabel>
                                     <Button variant="primary" type="submit" style={{ margin: '10px' }}>
