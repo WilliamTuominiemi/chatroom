@@ -33,10 +33,12 @@ export default class Main extends Component {
         })
 
         this.onChangeRoomName = this.onChangeRoomName.bind(this)
+        this.onChangeRoomPrivacy = this.onChangeRoomPrivacy.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
             roomName: '',
+            private: false,
             rooms: [],
             redirect: false,
             redirectUrl: '',
@@ -49,11 +51,17 @@ export default class Main extends Component {
         })
     }
 
+    onChangeRoomPrivacy(e) {
+        this.setState({
+            private: true,
+        })
+    }
     onSubmit(e) {
         e.preventDefault()
 
         const room = {
             roomName: this.state.roomName,
+            private: this.state.roomName,
             id: uuidv4(),
         }
 
@@ -114,6 +122,7 @@ export default class Main extends Component {
                                         <Form.Check
                                             type={'checkbox'}
                                             label={`Private`}
+                                            onChange={this.onChangeRoomPrivacy}
                                         />
                                     </FloatingLabel>
                                     <Button variant="primary" type="submit" style={{ margin: '10px' }}>
