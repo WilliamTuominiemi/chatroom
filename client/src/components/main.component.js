@@ -61,7 +61,7 @@ export default class Main extends Component {
 
         const room = {
             roomName: this.state.roomName,
-            private: this.state.roomName,
+            private: this.state.private,
             id: uuidv4(),
         }
 

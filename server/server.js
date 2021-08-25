@@ -53,9 +53,11 @@ io.on('connect', (socket) => {
     // Create room
     socket.on('create-room', (room) => {
         // Define object to be saved on DB
+        console.log(room.private)
         const _room = new Room({
             _id: room.id,
             name: room.roomName,
+            private: room.private,
         })
 
         _room
