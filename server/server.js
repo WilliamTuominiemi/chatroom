@@ -27,9 +27,11 @@ io.on('connect', (socket) => {
                     let room = JSON.parse(JSON.stringify(value))
 
                     if (io.sockets.adapter.rooms.get(value._id.toString())) {
-                        // If room is defined, get it's the number of users in it
-                        room.usersInRoom = io.sockets.adapter.rooms.get(value._id.toString()).size
-                        rooms.push(room)
+                        if(!value.private) {
+                            // If room is defined, get it's the number of users in it
+                            room.usersInRoom = io.sockets.adapter.rooms.get(value._id.toString()).size
+                            rooms.push(room)
+                        }               
                     } else {
                         // If the room is undefined, it has no active users
                         Room.findOneAndDelete({ _id: value._id }) // Delete empty room
