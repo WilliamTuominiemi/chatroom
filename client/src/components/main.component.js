@@ -25,16 +25,16 @@ const Room = (props) => (
 
 export default class Main extends Component {
     constructor(props) {
-        console.log(uuidv4())
-
         super(props)
         socket.on('get-rooms', (_rooms) => {
             this.setState({ rooms: _rooms })
         })
 
         this.onChangeRoomName = this.onChangeRoomName.bind(this)
+        this.onChangeRoomCode = this.onChangeRoomCode.bind(this)
         this.onChangeRoomPrivacy = this.onChangeRoomPrivacy.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.onSubmitCode = this.onSubmitCode.bind(this)
 
         this.state = {
             roomName: '',
@@ -42,6 +42,7 @@ export default class Main extends Component {
             rooms: [],
             redirect: false,
             redirectUrl: '',
+            roomCode : '',
         }
     }
 
@@ -56,6 +57,14 @@ export default class Main extends Component {
             private: true,
         })
     }
+
+    onChangeRoomCode(e) {
+        console.log(e.target.value)
+        this.setState({
+            roomCode: e.target.value,
+        })
+    }
+
     onSubmit(e) {
         e.preventDefault()
 
@@ -72,6 +81,23 @@ export default class Main extends Component {
             roomName: '',
             redirect: true,
             redirectRoom: `${room.id}`,
+        })
+    }
+
+    onSubmitCode(e) {
+        e.preventDefault()
+
+        const room = {
+            roomCode: this.state.roomCode,
+        }
+
+        console.log(room)
+
+        if (room === '') return
+        socket.emit('join-room', room)
+
+        this.setState({
+            roomCode: '',
         })
     }
 
@@ -100,7 +126,7 @@ export default class Main extends Component {
                 <Card.Body>
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Create a Room
+                            Create
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
@@ -127,6 +153,35 @@ export default class Main extends Component {
                                     </FloatingLabel>
                                     <Button variant="primary" type="submit" style={{ margin: '10px' }}>
                                         Create room
+                                    </Button>
+                                </Form.Group>
+                            </Form>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            Join
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Form onSubmit={this.onSubmitCode}>
+                                <Form.Group className="mb-3" controlId="formMessage">
+                                    <FloatingLabel
+                                        controlId="floatingMessage"
+                                        label="room name"
+                                        style={{ margin: '10px' }}
+                                    >
+                                        <Form.Control
+                                            type="text"
+                                            required
+                                            className="form-control"
+                                            placeholder="room name"
+                                            value={this.state.roomCode}
+                                            onChange={this.onChangeRoomCode}
+                                        /><br />
+                                    </FloatingLabel>
+                                    <Button variant="primary" type="submit" style={{ margin: '10px' }}>
+                                        Join room
                                     </Button>
                                 </Form.Group>
                             </Form>
