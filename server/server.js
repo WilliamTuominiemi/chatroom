@@ -80,6 +80,10 @@ io.on('connect', (socket) => {
         })
     })
 
+    socket.on('join-private-room', (room) => {
+        console.log(room)
+    })
+
     // Load rooms
     loadRooms()
 

@@ -94,7 +94,7 @@ export default class Main extends Component {
         console.log(room)
 
         if (room === '') return
-        socket.emit('join-room', room)
+        socket.emit('join-private-room', room)
 
         this.setState({
             roomCode: '',
@@ -129,20 +129,19 @@ export default class Main extends Component {
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                 Create
                             </Dropdown.Toggle>
-
                             <Dropdown.Menu>
                                 <Form onSubmit={this.onSubmit}>
                                     <Form.Group className="mb-3" controlId="formMessage">
                                         <FloatingLabel
                                             controlId="floatingMessage"
-                                            label="room name"
+                                            label="name"
                                             style={{ margin: '10px' }}
                                         >
                                             <Form.Control
                                                 type="text"
                                                 required
                                                 className="form-control"
-                                                placeholder="room name"
+                                                placeholder="name"
                                                 value={this.state.roomName}
                                                 onChange={this.onChangeRoomName}
                                             />
@@ -169,14 +168,14 @@ export default class Main extends Component {
                                     <Form.Group className="mb-3" controlId="formMessage">
                                         <FloatingLabel
                                             controlId="floatingMessage"
-                                            label="room name"
+                                            label="code"
                                             style={{ margin: '10px' }}
                                         >
                                             <Form.Control
                                                 type="text"
                                                 required
                                                 className="form-control"
-                                                placeholder="room name"
+                                                placeholder="code"
                                                 value={this.state.roomCode}
                                                 onChange={this.onChangeRoomCode}
                                             />
