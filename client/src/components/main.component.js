@@ -42,7 +42,7 @@ export default class Main extends Component {
             rooms: [],
             redirect: false,
             redirectUrl: '',
-            roomCode : '',
+            roomCode: '',
         }
     }
 
@@ -124,70 +124,71 @@ export default class Main extends Component {
                 <br />
                 <Card.Title>ChatApp</Card.Title>
                 <Card.Body>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Create
-                        </Dropdown.Toggle>
+                    <div class="btn-group" role="group">
+                        <Dropdown class="btn btn-secondary" style={{ margin: '10px' }}>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Create
+                            </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                            <Form onSubmit={this.onSubmit}>
-                                <Form.Group className="mb-3" controlId="formMessage">
-                                    <FloatingLabel
-                                        controlId="floatingMessage"
-                                        label="room name"
-                                        style={{ margin: '10px' }}
-                                    >
-                                        <Form.Control
-                                            type="text"
-                                            required
-                                            className="form-control"
-                                            placeholder="room name"
-                                            value={this.state.roomName}
-                                            onChange={this.onChangeRoomName}
-                                        /><br />
-                                        <Form.Check
-                                            type={'checkbox'}
-                                            label={`Private`}
-                                            onChange={this.onChangeRoomPrivacy}
-                                        />
-                                    </FloatingLabel>
-                                    <Button variant="primary" type="submit" style={{ margin: '10px' }}>
-                                        Create room
-                                    </Button>
-                                </Form.Group>
-                            </Form>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Join
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Form onSubmit={this.onSubmitCode}>
-                                <Form.Group className="mb-3" controlId="formMessage">
-                                    <FloatingLabel
-                                        controlId="floatingMessage"
-                                        label="room name"
-                                        style={{ margin: '10px' }}
-                                    >
-                                        <Form.Control
-                                            type="text"
-                                            required
-                                            className="form-control"
-                                            placeholder="room name"
-                                            value={this.state.roomCode}
-                                            onChange={this.onChangeRoomCode}
-                                        /><br />
-                                    </FloatingLabel>
-                                    <Button variant="primary" type="submit" style={{ margin: '10px' }}>
-                                        Join room
-                                    </Button>
-                                </Form.Group>
-                            </Form>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <br />
+                            <Dropdown.Menu>
+                                <Form onSubmit={this.onSubmit}>
+                                    <Form.Group className="mb-3" controlId="formMessage">
+                                        <FloatingLabel
+                                            controlId="floatingMessage"
+                                            label="room name"
+                                            style={{ margin: '10px' }}
+                                        >
+                                            <Form.Control
+                                                type="text"
+                                                required
+                                                className="form-control"
+                                                placeholder="room name"
+                                                value={this.state.roomName}
+                                                onChange={this.onChangeRoomName}
+                                            />
+                                            <br />
+                                            <Form.Check
+                                                type={'checkbox'}
+                                                label={`Private`}
+                                                onChange={this.onChangeRoomPrivacy}
+                                            />
+                                        </FloatingLabel>
+                                        <Button variant="primary" type="submit" style={{ margin: '10px' }}>
+                                            Create room
+                                        </Button>
+                                    </Form.Group>
+                                </Form>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Dropdown class="btn btn-secondary" style={{ margin: '10px' }}>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Join
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Form onSubmit={this.onSubmitCode}>
+                                    <Form.Group className="mb-3" controlId="formMessage">
+                                        <FloatingLabel
+                                            controlId="floatingMessage"
+                                            label="room name"
+                                            style={{ margin: '10px' }}
+                                        >
+                                            <Form.Control
+                                                type="text"
+                                                required
+                                                className="form-control"
+                                                placeholder="room name"
+                                                value={this.state.roomCode}
+                                                onChange={this.onChangeRoomCode}
+                                            />
+                                        </FloatingLabel>
+                                        <Button variant="primary" type="submit" style={{ margin: '10px' }}>
+                                            Join room
+                                        </Button>
+                                    </Form.Group>
+                                </Form>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                     {/* TODO: Needs to be run again when get-rooms is received */}
                     {this.roomsList()}
                 </Card.Body>
