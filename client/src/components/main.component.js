@@ -42,7 +42,9 @@ export default class Main extends Component {
             rooms: [],
             redirect: false,
             redirectUrl: '',
-            roomCode: '',
+            newRoomId: uuidv4(),
+            roomCode: Math.floor(1000 + Math.random() * 9000),
+            codeVisibility: 'hidden',
         }
     }
 
@@ -53,9 +55,17 @@ export default class Main extends Component {
     }
 
     onChangeRoomPrivacy(e) {
-        this.setState({
-            private: true,
-        })
+        if (!this.state.private) {
+            this.setState({
+                private: true,
+                codeVisibility: 'visible',
+            })
+        } else {
+            this.setState({
+                private: false,
+                codeVisibility: 'hidden',
+            })
+        }
     }
 
     onChangeRoomCode(e) {
@@ -71,7 +81,8 @@ export default class Main extends Component {
         const room = {
             roomName: this.state.roomName,
             private: this.state.private,
-            id: uuidv4(),
+            id: this.state.newRoomId,
+            code: this.state.roomCode,
         }
 
         if (room === '') return
@@ -81,6 +92,8 @@ export default class Main extends Component {
             roomName: '',
             redirect: true,
             redirectRoom: `${room.id}`,
+            newRoomId: uuidv4(),
+            roomCode: Math.floor(1000 + Math.random() * 9000),
         })
     }
 
@@ -152,6 +165,9 @@ export default class Main extends Component {
                                                 onChange={this.onChangeRoomPrivacy}
                                             />
                                         </FloatingLabel>
+                                        <Form.Label style={{ visibility: this.state.codeVisibility }}>
+                                            {this.state.roomCode}
+                                        </Form.Label>
                                         <Button variant="primary" type="submit" style={{ margin: '10px' }}>
                                             Create room
                                         </Button>
@@ -180,6 +196,7 @@ export default class Main extends Component {
                                                 onChange={this.onChangeRoomCode}
                                             />
                                         </FloatingLabel>
+                                        <br />
                                         <Button variant="primary" type="submit" style={{ margin: '10px' }}>
                                             Join room
                                         </Button>
