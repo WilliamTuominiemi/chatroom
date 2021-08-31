@@ -60,6 +60,7 @@ io.on('connect', (socket) => {
             _id: room.id,
             name: room.roomName,
             private: room.private,
+            code: room.code,
         })
 
         _room
