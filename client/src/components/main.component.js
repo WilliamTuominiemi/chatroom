@@ -45,6 +45,7 @@ export default class Main extends Component {
             newRoomId: uuidv4(),
             roomCode: Math.floor(1000 + Math.random() * 9000),
             codeVisibility: 'hidden',
+            roomCodeInput: '',
         }
     }
 
@@ -71,7 +72,7 @@ export default class Main extends Component {
     onChangeRoomCode(e) {
         console.log(e.target.value)
         this.setState({
-            roomCode: e.target.value,
+            roomCodeInput: e.target.value,
         })
     }
 
@@ -192,7 +193,7 @@ export default class Main extends Component {
                                                 required
                                                 className="form-control"
                                                 placeholder="code"
-                                                value={this.state.roomCode}
+                                                value={this.state.roomCodeInput}
                                                 onChange={this.onChangeRoomCode}
                                             />
                                         </FloatingLabel>
