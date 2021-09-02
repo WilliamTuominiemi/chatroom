@@ -84,7 +84,7 @@ io.on('connect', (socket) => {
             if (result.length === 0) {
                 io.to(socket.id).emit('invalid-room')
             } else {
-                io.to(socket.id).emit('join-private-room', result)
+                io.to(socket.id).emit('get-private-room-id', result[0])
                 socket.join(room)
             }
         })

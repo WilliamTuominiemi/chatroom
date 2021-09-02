@@ -30,6 +30,15 @@ export default class Main extends Component {
             this.setState({ rooms: _rooms })
         })
 
+        socket.on('get-private-room-id', (room) => {
+            console.log(room)
+
+            this.setState({
+                redirect: true,
+                redirectRoom: `${room._id}`,
+            })
+        })
+
         this.onChangeRoomName = this.onChangeRoomName.bind(this)
         this.onChangeRoomCode = this.onChangeRoomCode.bind(this)
         this.onChangeRoomPrivacy = this.onChangeRoomPrivacy.bind(this)
