@@ -55,7 +55,6 @@ io.on('connect', (socket) => {
     // Create room
     socket.on('create-room', (room) => {
         // Define object to be saved on DB
-        console.log(room.private)
         const _room = new Room({
             _id: room.id,
             name: room.roomName,
@@ -72,7 +71,6 @@ io.on('connect', (socket) => {
     // Join a room
     socket.on('join-room', (room) => {
         Room.find({ _id: room }).then((result) => {
-            console.log(result)
             if (result.length === 0) {
                 io.to(socket.id).emit('invalid-room')
             } else {
@@ -82,7 +80,14 @@ io.on('connect', (socket) => {
     })
 
     socket.on('join-private-room', (room) => {
-        console.log(room)
+        Room.find({ code: room.roomCode }).then((result) => {
+            if (result.length === 0) {
+                io.to(socket.id).emit('invalid-room')
+            } else {
+                io.to(socket.id).emit('join-private-room', result)
+                socket.join(room)
+            }
+        })
     })
 
     // Load rooms

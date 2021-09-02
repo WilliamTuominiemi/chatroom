@@ -102,7 +102,7 @@ export default class Main extends Component {
         e.preventDefault()
 
         const room = {
-            roomCode: this.state.roomCode,
+            roomCode: this.state.roomCodeInput,
         }
 
         console.log(room)
@@ -111,7 +111,7 @@ export default class Main extends Component {
         socket.emit('join-private-room', room)
 
         this.setState({
-            roomCode: '',
+            roomCodeInput: '',
         })
     }
 
