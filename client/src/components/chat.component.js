@@ -121,7 +121,9 @@ export default class Chat extends Component {
         return (
             <Card>
                 <Card.Body>
-                    <Card.Title style={{ float: 'left' }}>Chat</Card.Title>
+                    <Button variant="secondary" style={{ float: 'left' }} href={'/'}>
+                        Back
+                    </Button>
                     <Dropdown id="dropdown-menu-align-right" align="end" style={{ float: 'right' }}>
                         <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                             Settings
