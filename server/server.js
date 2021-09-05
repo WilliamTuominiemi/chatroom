@@ -62,6 +62,8 @@ io.on('connect', (socket) => {
             code: room.code,
         })
 
+        socket.join(room.id)
+
         _room
             .save()
             .then(() => loadRooms())
@@ -70,6 +72,7 @@ io.on('connect', (socket) => {
 
     // Join a room
     socket.on('join-room', (room) => {
+        console.log('join public room')
         Room.find({ _id: room }).then((result) => {
             if (result.length === 0) {
                 io.to(socket.id).emit('invalid-room')
@@ -80,6 +83,7 @@ io.on('connect', (socket) => {
     })
 
     socket.on('join-private-room', (room) => {
+        console.log('join private room')
         Room.find({ code: room.roomCode }).then((result) => {
             if (result.length === 0) {
                 io.to(socket.id).emit('invalid-room')
